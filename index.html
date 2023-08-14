@@ -1,22 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Juego de Ahorcado</title>
+    <title>Hangman Game</title>
 </head>
 <body>
-    <h1>Juego de Ahorcado</h1>
-    <p>¡Bienvenido! Estoy pensando en una palabra secreta. Adivina la palabra letra por letra.</p>
+    <h1>Hangman Game</h1>
+    <p>Welcome! I'm thinking of a secret word. Guess the word letter by letter.</p>
     <div id="wordDisplay"></div>
-    <p>Intentos restantes: <span id="remainingAttempts">6</span></p>
+    <p>Remaining attempts: <span id="remainingAttempts">6</span></p>
     <input type="text" id="guessInput">
-    <button onclick="checkGuess()">Adivinar</button>
+    <button onclick="checkGuess()">Guess</button>
     <p id="hint"></p>
-    <p id="hintsRemaining">Pistas restantes: 3</p>
-    <button onclick="useHint()">Usar Pista</button>
-    <button id="playAgainButton" style="display: none;" onclick="location.href='https://www.retoencodility.com'">Continue this way</button>
+    <p id="hintsRemaining">Hints remaining: 3</p>
 
     <script>
-        const words = ["javascript", "programacion", "desafio", "complicado", "tecnologia", "computadora"];
+        const words = [
+            "javascript", "technology", "community",
+            "programming", "developer", "framework",
+            "algorithm", "webdesign", "interface",
+            "frontend", "backend", "database",
+            "opensource", "prototype", "iteration",
+            "function", "variable", "iteration",
+            "component", "platform", "responsive",
+            "framework", "library", "middleware",
+            "interface", "debugging", "deployment",
+            "scalability", "architecture", "iteration",
+            "optimization", "authentication", "authorization",
+            "encryption", "agile", "versioncontrol",
+            "continuousintegration", "continuousdelivery", "performance",
+            "deployment", "scalability", "framework",
+            "community", "innovation", "stackoverflow",
+            "hackathon", "javascript", "typescript",
+            "opensource", "developer", "technology"
+        ];
+
         let secretWord = words[Math.floor(Math.random() * words.length)];
         let displayedWord = "_".repeat(secretWord.length);
         let remainingAttempts = 6;
@@ -27,7 +44,7 @@
             document.getElementById("guessInput").value = "";
 
             if (guess.length !== 1) {
-                document.getElementById("hint").textContent = "Ingresa solo una letra a la vez.";
+                document.getElementById("hint").textContent = "Enter only one letter at a time.";
                 return;
             }
 
@@ -39,17 +56,17 @@
                 }
 
                 if (displayedWord === secretWord) {
-                    document.getElementById("hint").textContent = `Congratulations!!, you unlocked the door that leads to the JS exercise!`;
+                    document.getElementById("hint").textContent = `Congratulations! You guessed the word "${secretWord}"!`;
                     document.getElementById("playAgainButton").style.display = "block";
                 } else {
-                    document.getElementById("hint").textContent = "¡Correcto! Sigue adivinando.";
+                    document.getElementById("hint").textContent = "Correct! Keep guessing.";
                 }
             } else {
                 remainingAttempts--;
-                document.getElementById("hint").textContent = "Incorrecto. Sigue intentándolo.";
+                document.getElementById("hint").textContent = "Incorrect. Keep trying.";
 
                 if (remainingAttempts === 0) {
-                    document.getElementById("hint").textContent = `¡Perdiste! La palabra era "${secretWord}".`;
+                    document.getElementById("hint").textContent = `You lost! The word was "${secretWord}".`;
                 }
             }
 
@@ -69,11 +86,13 @@
                     const randomIndex = hiddenIndexes[Math.floor(Math.random() * hiddenIndexes.length)];
                     displayedWord = displayedWord.substr(0, randomIndex) + secretWord[randomIndex] + displayedWord.substr(randomIndex + 1);
                     hintsRemaining--;
-                    document.getElementById("hintsRemaining").textContent = `Pistas restantes: ${hintsRemaining}`;
+                    document.getElementById("hintsRemaining").textContent = `Hints remaining: ${hintsRemaining}`;
                     document.getElementById("wordDisplay").textContent = displayedWord;
                 }
             }
         }
     </script>
+    <button onclick="useHint()">Use Hint</button>
+    <button id="playAgainButton" style="display: none;" onclick="location.href='https://www.retoencodility.com'">Play Again</button>
 </body>
 </html>
