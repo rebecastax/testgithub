@@ -1,68 +1,79 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Juego de Ahorcado</title>
+</head>
+<body>
+    <h1>Juego de Ahorcado</h1>
+    <p>¡Bienvenido! Estoy pensando en una palabra secreta. Adivina la palabra letra por letra.</p>
+    <div id="wordDisplay"></div>
+    <p>Intentos restantes: <span id="remainingAttempts">6</span></p>
+    <input type="text" id="guessInput">
+    <button onclick="checkGuess()">Adivinar</button>
+    <p id="hint"></p>
+    <p id="hintsRemaining">Pistas restantes: 3</p>
+    <button onclick="useHint()">Usar Pista</button>
+    <button id="playAgainButton" style="display: none;" onclick="location.href='https://www.retoencodility.com'">Continue this way</button>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <script>
+        const words = ["javascript", "programacion", "desafio", "complicado", "tecnologia", "computadora"];
+        let secretWord = words[Math.floor(Math.random() * words.length)];
+        let displayedWord = "_".repeat(secretWord.length);
+        let remainingAttempts = 6;
+        let hintsRemaining = 3;
 
-    <title>Hello, world!</title>
-  </head>
-  <body>
-    <h1>Hello, world!</h1>
+        function checkGuess() {
+            const guess = document.getElementById("guessInput").value.toLowerCase();
+            document.getElementById("guessInput").value = "";
 
-<!-- --- Nav bar --- -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Features</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+            if (guess.length !== 1) {
+                document.getElementById("hint").textContent = "Ingresa solo una letra a la vez.";
+                return;
+            }
 
-  <!-- --- botones --- -->
-    <button type="button" class="btn btn-primary">Primary</button>
-    <button type="button" class="btn btn-secondary">Secondary</button>
-    <button type="button" class="btn btn-success">Success</button>
-    <button type="button" class="btn btn-danger">Danger</button>
-    <button type="button" class="btn btn-warning">Warning</button>
-    <button type="button" class="btn btn-info">Info</button>
-    <button type="button" class="btn btn-light">Light</button>
-    <button type="button" class="btn btn-dark">Dark</button>
+            if (secretWord.includes(guess)) {
+                for (let i = 0; i < secretWord.length; i++) {
+                    if (secretWord[i] === guess) {
+                        displayedWord = displayedWord.substr(0, i) + guess + displayedWord.substr(i + 1);
+                    }
+                }
 
-    <button type="button" class="btn btn-link">Link</button>
+                if (displayedWord === secretWord) {
+                    document.getElementById("hint").textContent = `Congratulations!!, you unlocked the door that leads to the JS exercise!`;
+                    document.getElementById("playAgainButton").style.display = "block";
+                } else {
+                    document.getElementById("hint").textContent = "¡Correcto! Sigue adivinando.";
+                }
+            } else {
+                remainingAttempts--;
+                document.getElementById("hint").textContent = "Incorrecto. Sigue intentándolo.";
 
-    <!-- --- card --- -->
-    <div class="card" style="width: 18rem;">
-      <img class="card-img-top" src=".../100px180/" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
+                if (remainingAttempts === 0) {
+                    document.getElementById("hint").textContent = `¡Perdiste! La palabra era "${secretWord}".`;
+                }
+            }
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
-  </body>
+            document.getElementById("wordDisplay").textContent = displayedWord;
+            document.getElementById("remainingAttempts").textContent = remainingAttempts;
+        }
+
+        function useHint() {
+            if (hintsRemaining > 0) {
+                const hiddenIndexes = [];
+                for (let i = 0; i < secretWord.length; i++) {
+                    if (displayedWord[i] === "_") {
+                        hiddenIndexes.push(i);
+                    }
+                }
+                if (hiddenIndexes.length > 0) {
+                    const randomIndex = hiddenIndexes[Math.floor(Math.random() * hiddenIndexes.length)];
+                    displayedWord = displayedWord.substr(0, randomIndex) + secretWord[randomIndex] + displayedWord.substr(randomIndex + 1);
+                    hintsRemaining--;
+                    document.getElementById("hintsRemaining").textContent = `Pistas restantes: ${hintsRemaining}`;
+                    document.getElementById("wordDisplay").textContent = displayedWord;
+                }
+            }
+        }
+    </script>
+</body>
 </html>
