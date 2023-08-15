@@ -1,19 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Hangman Game</title>
+	<title>Hangman Game</title>
 </head>
-<body>
-    <h1>Hangman Game</h1>
-    <p>Welcome! I'm thinking of a secret word. Guess the word letter by letter.</p>
-    <div id="wordDisplay"></div>
-    <p>Remaining attempts: <span id="remainingAttempts">6</span></p>
-    <input type="text" id="guessInput">
-    <button onclick="checkGuess()">Guess</button>
-    <p id="hint"></p>
-    <p id="hintsRemaining">Hints remaining: 3</p>
+<body data-gr-ext-installed="" data-new-gr-c-s-check-loaded="14.1034.0">
+<h1><span style="color:#4B0082;"><span style="font-family:verdana,geneva,sans-serif;">WordQuest</span></span></h1>
 
-    <script>
+<p><span style="font-family:verdana,geneva,sans-serif;">&#128270 <span style="color:#800080;"><strong>The Challenge:</strong></span> We&#39;ve hidden a secret JavaScript-related word using the classic game of Hangman. Your task is to guess the letters and uncover the word. But wait, there&#39;s more! Solving the Hangman puzzle will open the door to an exclusive JavaScript exercise.</span></p>
+
+<div id="wordDisplay"><span style="font-family:verdana,geneva,sans-serif;">&#129513 <span style="color:#800080;"><strong>The JavaScript Exercise:</strong></span> Successfully guessing the Hangman word will unlock a JavaScript exercise that you need to solve.&nbsp;The first person to solve the exercise correctly and with an original response will win a ticket to JSCONF Mexico 2023!</span><br />
+<br />
+<br />
+&nbsp;</div>
+
+<p><span style="font-family:verdana,geneva,sans-serif;">Remaining attempts: <span id="remainingAttempts">6</span></span></p>
+<span style="font-family:verdana,geneva,sans-serif;"><input id="guessInput" type="text" /><button onclick="checkGuess()">Guess</button></span>
+
+<p id="hint">&nbsp;</p>
+
+<p id="hintsRemaining"><span style="font-family:verdana,geneva,sans-serif;">Hints remaining: 3</span></p>
+<span style="font-family:verdana,geneva,sans-serif;"> <script>
         const words = [
             "javascript", "technology", "community",
             "programming", "developer", "framework",
@@ -56,8 +62,8 @@
                 }
 
                 if (displayedWord === secretWord) {
-                    document.getElementById("hint").textContent = `Congratulations! You guessed the word "${secretWord}"!`;
-                    document.getElementById("playAgainButton").style.display = "block";
+                    document.getElementById("hint").textContent = `&#127881 Congratulations! You've just unlocked the door to a JavaScript exercise!`;
+                    document.getElementById("Next").style.display = "block";
                 } else {
                     document.getElementById("hint").textContent = "Correct! Keep guessing.";
                 }
@@ -91,8 +97,5 @@
                 }
             }
         }
-    </script>
-    <button onclick="useHint()">Use Hint</button>
-    <button id="playAgainButton" style="display: none;" onclick="location.href='https://www.retoencodility.com'">Play Again</button>
-</body>
+    </script><button onclick="useHint()">Use Hint</button></span><button id="Next" onclick="location.href='https://www.retoencodility.com'" style="display: none;">🔑 Continue this way</button><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></body>
 </html>
